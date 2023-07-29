@@ -1,4 +1,4 @@
-package com.example.hr_program;
+package com.hr_program;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
