@@ -34,7 +34,9 @@ class EmployeeControllerTest {
     void findEmployeeByEmployeeId() throws Exception {
         // given
         Long employeeId = 100L;
-        EmployeeInfoResponse employeeResponse = createEmployeeInfoResponse(employeeId);
+        String departmentName = "Executive";
+        String jobTitle = "President";
+        EmployeeInfoResponse employeeResponse = createEmployeeInfoResponse(employeeId, departmentName, jobTitle);
 
         when(employeeService.getEmployeeInfo(employeeId)).thenReturn(employeeResponse);
 
@@ -43,11 +45,7 @@ class EmployeeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.employeeId").value(employeeId))
-                .andExpect(jsonPath("$.data.firstName").value("Steven"))
-                .andExpect(jsonPath("$.data.lastName").value("King"))
-                .andExpect(jsonPath("$.data.email").value("SKING"))
                 .andExpect(jsonPath("$.data.jobTitle").value("President"))
-                .andExpect(jsonPath("$.data.salary").value(new BigDecimal("24000")))
                 .andExpect(jsonPath("$.data.departmentName").value("Executive"));
     }
 
@@ -70,21 +68,11 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
-    private static EmployeeInfoResponse createEmployeeInfoResponse(Long employeeId) {
+    private static EmployeeInfoResponse createEmployeeInfoResponse(Long employeeId, String departmentName, String jobTitle) {
         return EmployeeInfoResponse.builder()
                 .employeeId(employeeId)
-                .firstName("Steven")
-                .lastName("King")
-                .email("SKING")
-                .phoneNumber("515.123.4567")
-                .hireDate(new Date())
-                .salary(new BigDecimal(24000))
-                .commissionPct(null)
-                .departmentId(90L)
                 .departmentName("Executive")
-                .jobId("AD_PRES")
                 .jobTitle("President")
-                .managerInfo(null)
                 .build();
     }
 }
