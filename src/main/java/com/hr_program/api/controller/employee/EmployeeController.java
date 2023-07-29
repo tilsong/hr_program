@@ -1,7 +1,7 @@
 package com.hr_program.api.controller.employee;
 
 import com.hr_program.api.ApiResponse;
-import com.hr_program.api.service.employee.response.EmployeeResponse;
+import com.hr_program.api.service.employee.response.EmployeeInfoResponse;
 import com.hr_program.api.service.employee.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +15,7 @@ public class EmployeeController {
     private final EmployeeService employeeService;
 
     @GetMapping("/api/employee/{employeeId}")
-    public ApiResponse<EmployeeResponse> getEmployee(@PathVariable Long employeeId) {
-        return ApiResponse.ok(employeeService.getEmployee(employeeId));
+    public ApiResponse<EmployeeInfoResponse> getEmployeeInfo(@PathVariable Long employeeId) {
+        return ApiResponse.ok(employeeService.getEmployeeInfo(employeeId));
     }
-
 }

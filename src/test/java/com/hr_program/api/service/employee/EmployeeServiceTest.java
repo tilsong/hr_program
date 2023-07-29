@@ -1,8 +1,7 @@
 package com.hr_program.api.service.employee;
 
 
-import com.hr_program.api.service.employee.response.EmployeeResponse;
-import com.hr_program.domain.employee.EmployeeRepository;
+import com.hr_program.api.service.employee.response.EmployeeInfoResponse;
 import com.hr_program.domain.employee.exception.EmployeeNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,7 +25,7 @@ class EmployeeServiceTest {
         Long employeeId = 110L;
 
         // when
-        EmployeeResponse response = employeeService.getEmployee(employeeId);
+        EmployeeInfoResponse response = employeeService.getEmployeeInfo(employeeId);
 
         // then
         assertThat(response.getEmployeeId()).isNotNull();
@@ -42,7 +41,7 @@ class EmployeeServiceTest {
         Long employeeId = 90L;
 
         // when then
-        assertThatThrownBy(() -> employeeService.getEmployee(employeeId))
+        assertThatThrownBy(() -> employeeService.getEmployeeInfo(employeeId))
                 .isInstanceOf(EmployeeNotFoundException.class)
                 .hasMessage("존재하지 않는 직원 ID입니다.");
     }
