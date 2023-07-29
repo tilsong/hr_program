@@ -34,7 +34,7 @@ class EmployeeControllerTest {
     void findEmployeeByEmployeeId() throws Exception {
         // given
         Long employeeId = 100L;
-        EmployeeInfoResponse employeeResponse = new EmployeeInfoResponse(100L, "Steven", "King", "SKING", "515.123.4567", new Date(), new BigDecimal(24000), null, 90L, "Executive", "AD_PRES", "President", null, null, null);
+        EmployeeInfoResponse employeeResponse = createEmployeeInfoResponse(employeeId);
 
         when(employeeService.getEmployeeInfo(employeeId)).thenReturn(employeeResponse);
 
@@ -70,4 +70,21 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
+    private static EmployeeInfoResponse createEmployeeInfoResponse(Long employeeId) {
+        return EmployeeInfoResponse.builder()
+                .employeeId(employeeId)
+                .firstName("Steven")
+                .lastName("King")
+                .email("SKING")
+                .phoneNumber("515.123.4567")
+                .hireDate(new Date())
+                .salary(new BigDecimal(24000))
+                .commissionPct(null)
+                .departmentId(90L)
+                .departmentName("Executive")
+                .jobId("AD_PRES")
+                .jobTitle("President")
+                .managerInfo(null)
+                .build();
+    }
 }
