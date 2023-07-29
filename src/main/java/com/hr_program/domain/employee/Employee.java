@@ -12,9 +12,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Getter
 @Table(name = "employees")
 @Entity
-@AllArgsConstructor
 public class Employee {
 
     @Id
@@ -53,20 +54,4 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     private Department department;
-
-    public Long getId () {
-        return this.id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
 }

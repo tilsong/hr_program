@@ -25,4 +25,12 @@ public class Job {
 
     @Column(name = "max_salary")
     private BigDecimal maxSalary;
+
+    public String getJobId() {
+        return jobId;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
 }
