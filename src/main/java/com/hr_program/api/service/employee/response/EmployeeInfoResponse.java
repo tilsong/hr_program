@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 @Getter
-public class EmployeeResponse {
+public class EmployeeInfoResponse {
 
     private Long employeeId;
     private String firstName;
@@ -28,7 +28,7 @@ public class EmployeeResponse {
     private String managerLastName;
 
     @Builder
-    public EmployeeResponse(Long employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Long departmentId, String departmentName, String jobId, String jobTitle, Long managerId, String managerFirstName, String managerLastName) {
+    public EmployeeInfoResponse(Long employeeId, String firstName, String lastName, String email, String phoneNumber, Date hireDate, BigDecimal salary, BigDecimal commissionPct, Long departmentId, String departmentName, String jobId, String jobTitle, Long managerId, String managerFirstName, String managerLastName) {
         this.employeeId = employeeId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -46,8 +46,8 @@ public class EmployeeResponse {
         this.managerLastName = managerLastName;
     }
 
-    public static EmployeeResponse of(Employee employee) {
-        return EmployeeResponse.builder()
+    public static EmployeeInfoResponse of(Employee employee) {
+        return EmployeeInfoResponse.builder()
                 .employeeId(employee.getId())
                 .firstName(employee.getFirstName())
                 .lastName(employee.getLastName())
