@@ -1,8 +1,7 @@
 package com.hr_program.api.controller.employee;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hr_program.api.service.employee.EmployeeService;
-import com.hr_program.api.service.employee.response.EmployeeResponse;
+import com.hr_program.api.service.employee.response.EmployeeInfoResponse;
 import com.hr_program.domain.employee.exception.EmployeeNotFoundException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -36,9 +34,9 @@ class EmployeeControllerTest {
     void findEmployeeByEmployeeId() throws Exception {
         // given
         Long employeeId = 100L;
-        EmployeeResponse employeeResponse = new EmployeeResponse(100L, "Steven", "King", "SKING", "515.123.4567", new Date(), new BigDecimal(24000), null, 90L, "Executive", "AD_PRES", "President", null, null, null);
+        EmployeeInfoResponse employeeResponse = new EmployeeInfoResponse(100L, "Steven", "King", "SKING", "515.123.4567", new Date(), new BigDecimal(24000), null, 90L, "Executive", "AD_PRES", "President", null, null, null);
 
-        when(employeeService.getEmployee(employeeId)).thenReturn(employeeResponse);
+        when(employeeService.getEmployeeInfo(employeeId)).thenReturn(employeeResponse);
 
         // When Then
         mockMvc.perform(get("/api/employee/{employeeId}", employeeId)
@@ -59,7 +57,7 @@ class EmployeeControllerTest {
         // given
         Long employeeId = 90L;
 
-        when(employeeService.getEmployee(employeeId)).thenThrow(new EmployeeNotFoundException(employeeId));
+        when(employeeService.getEmployeeInfo(employeeId)).thenThrow(new EmployeeNotFoundException(employeeId));
 
         // When Then
         mockMvc.perform(get("/api/employee/{employeeId}", employeeId)
