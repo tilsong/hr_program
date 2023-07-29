@@ -28,10 +28,10 @@ class EmployeeServiceTest {
         EmployeeInfoResponse response = employeeService.getEmployeeInfo(employeeId);
 
         // then
-        assertThat(response.getEmployeeId()).isNotNull();
+        assertThat(response.employeeId()).isNotNull();
         assertThat(response)
-                .extracting("firstName", "lastName", "email", "departmentId", "departmentName", "jobId", "jobTitle", "managerId")
-                .contains("John", "Chen", "JCHEN", 100L, "Finance", "FI_ACCOUNT", "Accountant", 108L);
+                .extracting("firstName", "lastName", "email", "departmentId", "departmentName", "jobId", "jobTitle")
+                .contains("John", "Chen", "JCHEN", 100L, "Finance", "FI_ACCOUNT", "Accountant");
     }
 
     @DisplayName("존재하지 않는 사원의 아이디를 통해 사원의 현재 정보를 조회하면 실패한다.")

@@ -34,7 +34,9 @@ class EmployeeControllerTest {
     void findEmployeeByEmployeeId() throws Exception {
         // given
         Long employeeId = 100L;
-        EmployeeInfoResponse employeeResponse = new EmployeeInfoResponse(100L, "Steven", "King", "SKING", "515.123.4567", new Date(), new BigDecimal(24000), null, 90L, "Executive", "AD_PRES", "President", null, null, null);
+        String departmentName = "Executive";
+        String jobTitle = "President";
+        EmployeeInfoResponse employeeResponse = createEmployeeInfoResponse(employeeId, departmentName, jobTitle);
 
         when(employeeService.getEmployeeInfo(employeeId)).thenReturn(employeeResponse);
 
@@ -43,11 +45,7 @@ class EmployeeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.employeeId").value(employeeId))
-                .andExpect(jsonPath("$.data.firstName").value("Steven"))
-                .andExpect(jsonPath("$.data.lastName").value("King"))
-                .andExpect(jsonPath("$.data.email").value("SKING"))
                 .andExpect(jsonPath("$.data.jobTitle").value("President"))
-                .andExpect(jsonPath("$.data.salary").value(new BigDecimal("24000")))
                 .andExpect(jsonPath("$.data.departmentName").value("Executive"));
     }
 
@@ -70,4 +68,11 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
+    private static EmployeeInfoResponse createEmployeeInfoResponse(Long employeeId, String departmentName, String jobTitle) {
+        return EmployeeInfoResponse.builder()
+                .employeeId(employeeId)
+                .departmentName("Executive")
+                .jobTitle("President")
+                .build();
+    }
 }

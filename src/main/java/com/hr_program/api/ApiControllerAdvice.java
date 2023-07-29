@@ -1,5 +1,6 @@
 package com.hr_program.api;
 
+import com.hr_program.domain.department.exception.DepartmentNotFoundException;
 import com.hr_program.domain.employee.exception.EmployeeNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -23,6 +24,16 @@ public class ApiControllerAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EmployeeNotFoundException.class)
     public ApiResponse<Object> employeeNotFoundException(EmployeeNotFoundException e) {
+        return ApiResponse.of(
+                HttpStatus.NOT_FOUND,
+                e.getMessage(),
+                null
+        );
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(DepartmentNotFoundException.class)
+    public ApiResponse<Object> departmentNotFoundException(DepartmentNotFoundException e) {
         return ApiResponse.of(
                 HttpStatus.NOT_FOUND,
                 e.getMessage(),

@@ -18,6 +18,6 @@ public class EmployeeService {
         var employee = employeeRepository.findByIdWithFetchJoin(employeeId)
                 .orElseThrow(() -> new EmployeeNotFoundException(employeeId));
 
-        return EmployeeInfoResponse.of(employee);
+        return EmployeeInfoResponse.from(employee);
     }
 }

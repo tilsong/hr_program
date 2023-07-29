@@ -20,7 +20,7 @@ public class JobHistoryService {
     public List<JobHistoryResponse> getJobHistory(Long employeeId) {
         return jobHistoryRepository.findJobHistoryByEmployeeId(employeeId)
                 .stream()
-                .map(jh -> JobHistoryResponse.of(jh))
+                .map(JobHistoryResponse::from)
                 .collect(Collectors.toList());
     }
 }

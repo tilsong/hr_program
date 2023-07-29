@@ -3,10 +3,12 @@ package com.hr_program.domain.location;
 import com.hr_program.domain.country.Country;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Entity
 @Table(name = "locations")
 public class Location {
@@ -27,7 +29,7 @@ public class Location {
     @Column(name = "state_province")
     private String stateProvince;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "country_id", referencedColumnName = "country_id")
     private Country country;
 }
