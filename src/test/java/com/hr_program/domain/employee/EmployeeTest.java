@@ -1,5 +1,6 @@
 package com.hr_program.domain.employee;
 
+import com.hr_program.domain.department.Department;
 import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import com.hr_program.domain.job.Job;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +27,7 @@ public class EmployeeTest {
         assertThat(isMaxSalary).isTrue();
     }
 
-    @DisplayName("현재 직원의 봉급이 최대 값이 아니면 거짓을 반환한다.")
+    @DisplayName("현재 직원의 봉급이 최대 값이 아니거나 Job의 최대 봉급 값이 없으면 거짓을 반환한다.")
     @Test
     void isNoMaxSalary() {
         // given
