@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class DepartmentNotFoundException extends RuntimeException {
 
-    private Long requestedDepartmentId;
+    private final Long requestedDepartmentId;
 
     private final static String message = "존재하지 않는 부서 Id입니다.";
 

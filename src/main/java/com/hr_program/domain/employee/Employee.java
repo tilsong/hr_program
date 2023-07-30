@@ -68,11 +68,7 @@ public class Employee {
     }
 
     public boolean isMaxSalary() {
-        if (this.job.getMaxSalary() != null && this.job.getMaxSalary().compareTo(this.salary) == 0) {
-            return true;
-        }
-
-        return false;
+        return this.job.getMaxSalary() != null && this.job.getMaxSalary().compareTo(this.salary) == 0;
     }
 
     public BigDecimal raiseSalary(Double raiseRate) {
