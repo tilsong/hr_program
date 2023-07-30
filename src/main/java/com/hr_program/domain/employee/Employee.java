@@ -65,5 +65,11 @@ public class Employee {
         this.manager = manager;
         this.department = department;
     }
-    
+
+    public boolean isMaxSalary() {
+        if (this.job.getMaxSalary() != null && this.job.getMaxSalary().compareTo(this.salary) == 0) {
+            return true;
+        }
+        return false;
+    }
 }
