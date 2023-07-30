@@ -5,6 +5,7 @@ import com.hr_program.domain.employee.Employee;
 import com.hr_program.domain.location.Location;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,4 +29,12 @@ public class Department {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "location_id", referencedColumnName = "location_id")
     private Location location;
+
+    @Builder
+    public Department(Long departmentId, String departmentName, Employee manager, Location location) {
+        this.departmentId = departmentId;
+        this.departmentName = departmentName;
+        this.manager = manager;
+        this.location = location;
+    }
 }

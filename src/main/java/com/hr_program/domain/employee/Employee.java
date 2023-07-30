@@ -1,18 +1,15 @@
 package com.hr_program.domain.employee;
 
 import com.hr_program.domain.department.Department;
+import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import com.hr_program.domain.job.Job;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Getter
 @Table(name = "employees")
 @Entity
@@ -54,4 +51,38 @@ public class Employee {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     private Department department;
+
+    @Builder
+    private Employee(Long id, String firstName, String lastName, String email, String phoneNumber, Date hireDate, Job job, BigDecimal salary, BigDecimal commissionPct, Employee manager, Department department) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.hireDate = hireDate;
+        this.job = job;
+        this.salary = salary;
+        this.commissionPct = commissionPct;
+        this.manager = manager;
+        this.department = department;
+    }
+
+    public boolean isMaxSalary() {
+        return this.job.getMaxSalary() != null && this.job.getMaxSalary().compareTo(this.salary) == 0;
+    }
+
+    public BigDecimal raiseSalary(Double raiseRate) {
+        if (raiseRate < 0 || raiseRate > 100) {
+            throw new InvalidSalaryRaiseRateException(raiseRate);
+        }
+
+        BigDecimal raisedSalary = this.salary.multiply(BigDecimal.valueOf((100 + raiseRate) * 0.01));
+        if (this.job.getMaxSalary() != null && raisedSalary.compareTo(this.job.getMaxSalary()) <= 0) {
+            this.salary = raisedSalary;
+        } else {
+            this.salary = this.job.getMaxSalary();
+        }
+
+        return this.salary;
+    }
 }

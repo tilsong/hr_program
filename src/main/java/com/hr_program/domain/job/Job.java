@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
@@ -26,11 +27,27 @@ public class Job {
     @Column(name = "max_salary")
     private BigDecimal maxSalary;
 
+    @Builder
+    private Job(String jobId, String jobTitle, BigDecimal minSalary, BigDecimal maxSalary) {
+        this.jobId = jobId;
+        this.jobTitle = jobTitle;
+        this.minSalary = minSalary;
+        this.maxSalary = maxSalary;
+    }
+
     public String getJobId() {
         return jobId;
     }
 
     public String getJobTitle() {
         return jobTitle;
+    }
+
+    public BigDecimal getMaxSalary() {
+        if (this.maxSalary != null) {
+            return maxSalary;
+        }
+
+        return null;
     }
 }

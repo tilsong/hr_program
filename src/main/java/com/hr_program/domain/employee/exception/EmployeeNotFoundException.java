@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class EmployeeNotFoundException extends RuntimeException {
 
-    private Long requestedEmployeeId;
+    private final Long requestedEmployeeId;
 
     private final static String message = "존재하지 않는 직원 ID입니다.";
 
