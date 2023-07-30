@@ -1,6 +1,7 @@
 package com.hr_program.domain.employee;
 
 import com.hr_program.domain.department.Department;
+import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import com.hr_program.domain.job.Job;
 import jakarta.persistence.*;
 import lombok.*;
@@ -70,6 +71,22 @@ public class Employee {
         if (this.job.getMaxSalary() != null && this.job.getMaxSalary().compareTo(this.salary) == 0) {
             return true;
         }
+
         return false;
+    }
+
+    public BigDecimal raiseSalary(Double raiseRate) {
+        if (raiseRate < 0 || raiseRate > 100) {
+            throw new InvalidSalaryRaiseRateException(raiseRate);
+        }
+
+        BigDecimal raisedSalary = this.salary.multiply(BigDecimal.valueOf((100 + raiseRate) * 0.01));
+        if (this.job.getMaxSalary() != null && raisedSalary.compareTo(this.job.getMaxSalary()) <= 0) {
+            this.salary = raisedSalary;
+        } else {
+            this.salary = this.job.getMaxSalary();
+        }
+
+        return this.salary;
     }
 }
