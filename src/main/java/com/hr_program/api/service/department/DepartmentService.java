@@ -4,7 +4,6 @@ import com.hr_program.api.service.department.response.DepartmentInfoResponse;
 import com.hr_program.api.service.department.response.RaiseSalariesForDepartmentResponse;
 import com.hr_program.domain.department.DepartmentRepository;
 import com.hr_program.domain.department.exception.DepartmentNotFoundException;
-import com.hr_program.domain.employee.Employee;
 import com.hr_program.domain.employee.EmployeeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

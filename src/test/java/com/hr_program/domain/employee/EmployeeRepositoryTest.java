@@ -1,6 +1,5 @@
 package com.hr_program.domain.employee;
 
-import com.hr_program.api.service.department.DepartmentService;
 import com.hr_program.domain.department.Department;
 import com.hr_program.domain.department.DepartmentRepository;
 import com.hr_program.domain.employee.exception.EmployeeNotFoundException;

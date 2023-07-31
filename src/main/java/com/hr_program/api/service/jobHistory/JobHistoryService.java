@@ -1,7 +1,6 @@
 package com.hr_program.api.service.jobHistory;
 
 import com.hr_program.api.service.jobHistory.response.JobHistoryResponse;
-import com.hr_program.domain.jobHistory.JobHistory;
 import com.hr_program.domain.jobHistory.JobHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

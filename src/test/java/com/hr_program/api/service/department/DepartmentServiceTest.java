@@ -10,7 +10,6 @@ import com.hr_program.domain.employee.EmployeeRepository;
 import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import com.hr_program.domain.job.Job;
 import com.hr_program.domain.job.JobRepository;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

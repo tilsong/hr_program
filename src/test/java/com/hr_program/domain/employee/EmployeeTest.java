@@ -1,6 +1,5 @@
 package com.hr_program.domain.employee;
 
-import com.hr_program.domain.department.Department;
 import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import com.hr_program.domain.job.Job;
 import org.junit.jupiter.api.DisplayName;
