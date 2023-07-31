@@ -1,5 +1,6 @@
 package com.hr_program.api;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.hr_program.domain.department.exception.DepartmentNotFoundException;
 import com.hr_program.domain.employee.exception.EmployeeNotFoundException;
 import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
@@ -45,6 +46,16 @@ public class ApiControllerAdvice {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidSalaryRaiseRateException.class)
     public ApiResponse<Object> invalidSalaryRaiseRateException(InvalidSalaryRaiseRateException e) {
+        return ApiResponse.of(
+                HttpStatus.BAD_REQUEST,
+                e.getMessage(),
+                null
+        );
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidFormatException.class)
+    public ApiResponse<Object> invalidFormatException(InvalidFormatException e) {
         return ApiResponse.of(
                 HttpStatus.BAD_REQUEST,
                 e.getMessage(),
