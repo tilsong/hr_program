@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,4 +19,10 @@ public class Region {
 
     @Column(name = "region_name")
     private String regionName;
+
+    @Builder
+    public Region(Long regionId, String regionName) {
+        this.regionId = regionId;
+        this.regionName = regionName;
+    }
 }

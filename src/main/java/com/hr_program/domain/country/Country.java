@@ -3,6 +3,7 @@ package com.hr_program.domain.country;
 import com.hr_program.domain.region.Region;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,11 @@ public class Country {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "region_id", referencedColumnName = "region_id")
     private Region region;
+
+    @Builder
+    public Country(String countryId, String countryName, Region region) {
+        this.countryId = countryId;
+        this.countryName = countryName;
+        this.region = region;
+    }
 }

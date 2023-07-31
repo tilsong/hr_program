@@ -1,6 +1,5 @@
 package com.hr_program.domain.jobHistory;
 
-import com.hr_program.api.service.jobHistory.response.JobHistoryResponse;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

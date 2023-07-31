@@ -1,12 +1,8 @@
 package com.hr_program.api.controller.AnniversaryApi;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hr_program.api.controller.AnniversaryApi.request.AnniversaryInfoRequest;
-import com.hr_program.api.controller.department.request.RaiseSalariesForDepartmentRequest;
 import com.hr_program.api.service.AnniversaryApI.AnniversaryApiService;
 import com.hr_program.api.service.AnniversaryApI.response.AnniversaryInfoResponse;
-import com.hr_program.api.service.department.response.DepartmentInfoResponse;
-import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.bind.MissingServletRequestParameterException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
