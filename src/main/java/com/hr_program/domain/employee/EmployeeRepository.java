@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    @Query("select e from Employee e join fetch e.job join fetch e.manager join fetch e.department where e.id = :id")
+    @Query("select e from Employee e join fetch e.job left join fetch e.manager left join fetch e.department where e.id = :id")
     Optional<Employee> findByIdWithFetchJoin(@Param("id") Long id);
 
     @Query("select e from Employee e join fetch e.job where e.department.departmentId = :departmentId")
