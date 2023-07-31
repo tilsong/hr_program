@@ -2,27 +2,20 @@ package com.hr_program.learningTest.AnniversaryApiTest;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Getter
-@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ResponseData {
     public Response getResponse() {
         return response;
     }
 
-
     @JsonProperty("response")
     private Response response;
 
-    @Getter
-    @ToString
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class Response {
 
@@ -35,8 +28,6 @@ public class ResponseData {
         @JsonProperty("body")
         private Body body;
 
-        @Getter
-        @ToString
         @JsonIgnoreProperties(ignoreUnknown = true)
         public static class Header {
 
@@ -47,8 +38,6 @@ public class ResponseData {
             private String resultMsg;
         }
 
-        @Getter
-        @ToString
         @JsonIgnoreProperties(ignoreUnknown = true)
         public static class Body {
 
@@ -59,8 +48,6 @@ public class ResponseData {
             @JsonProperty("items")
             private Items items;
 
-            @Getter
-            @ToString
             @JsonIgnoreProperties(ignoreUnknown = true)
             public static class Items {
 
@@ -71,8 +58,6 @@ public class ResponseData {
                 @JsonProperty("item")
                 private List<Item> item;
 
-                @Getter
-                @ToString
                 @JsonIgnoreProperties(ignoreUnknown = true)
                 public static class Item {
 

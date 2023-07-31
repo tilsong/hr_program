@@ -2,17 +2,17 @@ package com.hr_program.api.intergration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hr_program.api.intergration.response.ResponseData;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 @Component
 public class AnniversaryApiClient {
@@ -25,7 +25,8 @@ public class AnniversaryApiClient {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ResponseData.Response.Body.Items getAnniversaryInfo(String pageNo, String numOfRows, String year, String month) throws IOException {
+    @SneakyThrows
+    public List<ResponseData.Response.Body.Items.Item> getAnniversaryInfo(String pageNo, String numOfRows, String year, String month) {
         String encodedServiceKey = URLEncoder.encode(SERVICE_KEY, "UTF-8");
         String query = String.format("?ServiceKey=%s&pageNo=%s&_type=%s&numOfRows=%s&solYear=%s&solMonth=%s",
                 encodedServiceKey, pageNo, "json", numOfRows, year, month);
@@ -35,7 +36,7 @@ public class AnniversaryApiClient {
 
         ResponseData responseData = objectMapper.readValue(response, ResponseData.class);
 
-        return responseData.getResponse().getBody().getItems();
+        return responseData.getResponse().getBody().getItems().getItem();
     }
 
     private String fetch(URL url) throws IOException {

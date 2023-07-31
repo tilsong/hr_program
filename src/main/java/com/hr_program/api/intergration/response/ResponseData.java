@@ -66,8 +66,11 @@ public class ResponseData {
                         return dateName;
                     }
 
-                    public String getIsHoliday() {
-                        return isHoliday;
+                    public Boolean getIsHoliday() {
+                        if (isHoliday.equals("N")) {
+                            return false;
+                        }
+                        return true;
                     }
 
                     public LocalDate getLocdate() {

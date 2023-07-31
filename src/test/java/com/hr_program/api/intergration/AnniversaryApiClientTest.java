@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -32,14 +33,14 @@ class AnniversaryApiClientTest {
         var anniversaryInfo = anniversaryApiClient.getAnniversaryInfo(pageNo, numOfRows, year, month);
 
         // then
-        ResponseData.Response.Body.Items.Item item1 = anniversaryInfo.getItem().get(0);
-        ResponseData.Response.Body.Items.Item item2 = anniversaryInfo.getItem().get(1);
+        ResponseData.Response.Body.Items.Item item1 = anniversaryInfo.get(0);
+        ResponseData.Response.Body.Items.Item item2 = anniversaryInfo.get(1);
         assertThat(item1.getLocdate()).isEqualTo("2023-07-07");
         assertThat(item1.getDateName()).isEqualTo("소서");
-        assertThat(item1.getIsHoliday()).isEqualTo("N");
+        assertThat(item1.getIsHoliday()).isFalse();
         assertThat(item2.getLocdate()).isEqualTo("2023-07-23");
         assertThat(item2.getDateName()).isEqualTo("대서");
-        assertThat(item2.getIsHoliday()).isEqualTo("N");
+        assertThat(item2.getIsHoliday()).isFalse();
     }
 
     @DisplayName("유효하지 않은 날짜 정보 입력 시 요청이 실패한다.")
