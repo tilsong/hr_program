@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -22,10 +21,8 @@ class AnniversaryApiClientTest {
 
     @DisplayName("기념일 정보를 가져온다.")
     @Test
-    void getAnniversaryInfoTest() throws IOException {
+    void getAnniversaryInfoTest() {
         // given
-        String pageNo = "1";
-        String numOfRows = "2";
         String year = "2023";
         String month = "07";
 
