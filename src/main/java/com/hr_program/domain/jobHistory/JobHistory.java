@@ -5,6 +5,7 @@ import com.hr_program.domain.employee.Employee;
 import com.hr_program.domain.job.Job;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
@@ -34,6 +35,15 @@ public class JobHistory {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id", referencedColumnName = "department_id")
     private Department department;
+
+    @Builder
+    public JobHistory(Employee employee, Date startDate, Date endDate, Job job, Department department) {
+        this.employee = employee;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.job = job;
+        this.department = department;
+    }
 
     public Date getStartDate() {
         return startDate;
