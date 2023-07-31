@@ -31,9 +31,8 @@ class EmployeeControllerTest {
     void findEmployeeByEmployeeId() throws Exception {
         // given
         Long employeeId = 100L;
-        String departmentName = "Executive";
         String jobTitle = "President";
-        EmployeeInfoResponse employeeResponse = createEmployeeInfoResponse(employeeId, departmentName, jobTitle);
+        EmployeeInfoResponse employeeResponse = createEmployeeInfoResponse(employeeId, jobTitle);
 
         when(employeeService.getEmployeeInfo(employeeId)).thenReturn(employeeResponse);
 
@@ -42,8 +41,7 @@ class EmployeeControllerTest {
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.data.employeeId").value(employeeId))
-                .andExpect(jsonPath("$.data.jobTitle").value("President"))
-                .andExpect(jsonPath("$.data.departmentName").value("Executive"));
+                .andExpect(jsonPath("$.data.jobTitle").value("President"));
     }
 
     @DisplayName("존재하지 않는 사원의 아이디를 통해 사원의 현재 정보를 조회하면 실패한다.")
@@ -65,10 +63,9 @@ class EmployeeControllerTest {
                 .andExpect(jsonPath("$.data").isEmpty());
     }
 
-    private static EmployeeInfoResponse createEmployeeInfoResponse(Long employeeId, String departmentName, String jobTitle) {
+    private static EmployeeInfoResponse createEmployeeInfoResponse(Long employeeId, String jobTitle) {
         return EmployeeInfoResponse.builder()
                 .employeeId(employeeId)
-                .departmentName("Executive")
                 .jobTitle("President")
                 .build();
     }

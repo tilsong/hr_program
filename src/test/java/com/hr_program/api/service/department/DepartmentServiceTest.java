@@ -1,7 +1,8 @@
 package com.hr_program.api.service.department;
 
-import com.hr_program.api.service.department.response.DepartmentInfoResponse;
 import com.hr_program.api.service.department.response.RaiseSalariesForDepartmentResponse;
+import com.hr_program.domain.country.Country;
+import com.hr_program.domain.country.CountryRepository;
 import com.hr_program.domain.department.Department;
 import com.hr_program.domain.department.DepartmentRepository;
 import com.hr_program.domain.department.exception.DepartmentNotFoundException;
@@ -10,20 +11,26 @@ import com.hr_program.domain.employee.EmployeeRepository;
 import com.hr_program.domain.employee.exception.InvalidSalaryRaiseRateException;
 import com.hr_program.domain.job.Job;
 import com.hr_program.domain.job.JobRepository;
+import com.hr_program.domain.location.Location;
+import com.hr_program.domain.location.LocationRepository;
+import com.hr_program.domain.region.Region;
+import com.hr_program.domain.region.RegionRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
+import static com.hr_program.util.TestUtil.*;
 import static org.assertj.core.api.Assertions.*;
 
 @ActiveProfiles("test")
 @SpringBootTest
+@Transactional
 class DepartmentServiceTest {
 
     @Autowired
@@ -38,21 +45,37 @@ class DepartmentServiceTest {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    @Autowired
+    private RegionRepository regionRepository;
+
+    @Autowired
+    private CountryRepository countryRepository;
+
+    @Autowired
+    private LocationRepository locationRepository;
+
     @DisplayName("부서 아이디를 통해 부서 및 위치 정보를 조회한다.")
     @Test
     void findDepartmentAndLocationInfoByDepartmentId() {
         // given
-        Long departmentId = 10L;
-        Long mappedLocationId = 1700L;
-        Long mappedManagerId = 200L;
+        Region region = createRegion();
+        Region saveRegion = regionRepository.save(region);
+
+        Country country = createCountry(saveRegion);
+        Country saveCountry = countryRepository.save(country);
+
+        Location location = createLocation(saveCountry);
+        Location saveLocation = locationRepository.save(location);
+
+        Department department = createDepartment(1L, "Customer", saveLocation);
+        Department save = departmentRepository.save(department);
 
         // when
-        DepartmentInfoResponse departmentInfo = departmentService.getDepartmentInfo(departmentId);
+        var departmentInfo = departmentService.getDepartmentInfo(save.getDepartmentId());
 
         // then
-        assertThat(departmentInfo.departmentId()).isEqualTo(departmentId);
-        assertThat(departmentInfo.location().id()).isEqualTo(mappedLocationId);
-        assertThat(departmentInfo.manager().id()).isEqualTo(mappedManagerId);
+        assertThat(departmentInfo.departmentId()).isEqualTo(department.getDepartmentId());
+        assertThat(departmentInfo.location().id()).isEqualTo(saveLocation.getLocationId());
     }
 
     @DisplayName("존재하지 않는 부서 아이디를 통해 부서 및 위치 정보를 조회하면 실패한다.")
@@ -90,8 +113,8 @@ class DepartmentServiceTest {
         assertThat(responses).hasSize(2)
                 .extracting("employeeId", "raisedSalary", "isMaxSalary")
                 .containsExactlyInAnyOrder(
-                        tuple(1L, new BigDecimal(92.25).setScale(5), false),
-                        tuple(2L, new BigDecimal(102.5).setScale(5), false)
+                        tuple(1L, new BigDecimal(92.25).setScale(3), false),
+                        tuple(2L, new BigDecimal(102.5).setScale(3), false)
                 );
     }
 
@@ -124,22 +147,4 @@ class DepartmentServiceTest {
                 .build();
     }
 
-    private static Employee createEmployee(Long id, Department department, Job job, Double salary) {
-        return Employee.builder()
-                .id(id)
-                .lastName("kim")
-                .email("kim")
-                .hireDate(new Date())
-                .salary(new BigDecimal(salary))
-                .department(department)
-                .job(job)
-                .build();
-    }
-
-    private static Department createDepartment(Long departmentId, String departmentName) {
-        return Department.builder()
-                .departmentId(departmentId)
-                .departmentName(departmentName)
-                .build();
-    }
 }

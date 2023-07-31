@@ -18,8 +18,7 @@ public record EmployeeInfoResponse(
     Date hireDate,
     BigDecimal salary,
     BigDecimal commissionPct,
-    Long departmentId,
-    String departmentName,
+    DepartmentInfo departmentInfo,
     String jobId,
     String jobTitle,
     ManagerInfo managerInfo
@@ -34,8 +33,7 @@ public record EmployeeInfoResponse(
                 .hireDate(employee.getHireDate())
                 .salary(employee.getSalary())
                 .commissionPct(employee.getCommissionPct())
-                .departmentId(employee.getDepartment().getDepartmentId())
-                .departmentName(employee.getDepartment().getDepartmentName())
+                .departmentInfo(Optional.ofNullable(employee.getDepartment()).map(DepartmentInfo::from).orElse(null))
                 .jobId(employee.getJob().getJobId())
                 .jobTitle(employee.getJob().getJobTitle())
                 .managerInfo(Optional.ofNullable(employee.getManager()).map(ManagerInfo::from).orElse(null))
