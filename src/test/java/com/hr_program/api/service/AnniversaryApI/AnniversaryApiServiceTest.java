@@ -23,13 +23,11 @@ class AnniversaryApiServiceTest {
     @Test
     void getAnniversaryInfoTest() {
         // given
-        String pageNo = "1";
-        String numOfRows = "2";
         String year = "2023";
         String month = "07";
 
         // when
-        var anniversaryInfo = anniversaryApiService.getAnniversaryInfo(pageNo, numOfRows, year, month);
+        var anniversaryInfo = anniversaryApiService.getAnniversaryInfo(year, month);
 
         // then
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
@@ -51,7 +49,7 @@ class AnniversaryApiServiceTest {
         String invalidYear = "900";
 
         // when then
-        assertThatThrownBy(() -> anniversaryApiService.getAnniversaryInfo("1", "10", invalidYear, "07"))
+        assertThatThrownBy(() -> anniversaryApiService.getAnniversaryInfo(invalidYear, "07"))
                 .isInstanceOf(InvalidFormatException.class);
     }
 }

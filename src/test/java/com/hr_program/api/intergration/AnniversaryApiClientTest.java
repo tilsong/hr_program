@@ -30,7 +30,7 @@ class AnniversaryApiClientTest {
         String month = "07";
 
         // when
-        var anniversaryInfo = anniversaryApiClient.getAnniversaryInfo(pageNo, numOfRows, year, month);
+        var anniversaryInfo = anniversaryApiClient.getAnniversaryInfo(year, month);
 
         // then
         ResponseData.Response.Body.Items.Item item1 = anniversaryInfo.get(0);
@@ -50,7 +50,7 @@ class AnniversaryApiClientTest {
         String invalidYear = "1000";
 
         // when
-        assertThatThrownBy(() -> anniversaryApiClient.getAnniversaryInfo("1", "10", invalidYear, "07"))
+        assertThatThrownBy(() -> anniversaryApiClient.getAnniversaryInfo(invalidYear, "07"))
                 .isInstanceOf(InvalidFormatException.class);
     }
 }

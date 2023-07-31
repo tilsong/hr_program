@@ -26,10 +26,10 @@ public class AnniversaryApiClient {
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
     @SneakyThrows
-    public List<ResponseData.Response.Body.Items.Item> getAnniversaryInfo(String pageNo, String numOfRows, String year, String month) {
+    public List<ResponseData.Response.Body.Items.Item> getAnniversaryInfo(String year, String month) {
         String encodedServiceKey = URLEncoder.encode(SERVICE_KEY, "UTF-8");
         String query = String.format("?ServiceKey=%s&pageNo=%s&_type=%s&numOfRows=%s&solYear=%s&solMonth=%s",
-                encodedServiceKey, pageNo, "json", numOfRows, year, month);
+                encodedServiceKey, "1", "json", "20", year, month);
         URL url = new URL(BASE_URL + query);
 
         String response = fetch(url);
